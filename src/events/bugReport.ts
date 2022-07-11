@@ -15,7 +15,9 @@ module.exports = {
         if (interaction.author.bot) {
             return;
         }
-        if (!interaction.content) {
+
+        const channel = interaction.channel
+        if (!interaction.content && (channel as TextChannel).name == bug_channel) {
             await interaction.reply('Please describe your issue in text.')
                 .then(msg => {
                     setTimeout(() => msg.delete(), 5000);
@@ -23,7 +25,6 @@ module.exports = {
             await interaction.delete();
             return;
         }
-        const channel = interaction.channel
         const name = (interaction.content.length < 100) ? interaction.content : interaction.content.slice(0, 100).concat('...');
         if (channel.isText() && (channel as TextChannel).name == bug_channel) {
             const thread = await interaction.startThread({ name: name });
