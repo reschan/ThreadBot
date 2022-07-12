@@ -2,15 +2,11 @@ import { SlashCommandBuilder } from '@discordjs/builders'
 import { CommandInteraction, Permissions, GuildMember } from 'discord.js';
 import { bug_channel } from '../config.json'
 
-
-const SOLVE_PERMS = '17179877432';
-const ADMIN_PERMS = 8;
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('close')
         .setDescription("Mark an issue as closed and archive it.")
-        .setDMPermission(false)
-        .setDefaultMemberPermissions('0'),
+        .setDefaultPermission(true), // DEPRECATED
 
     async execute(interaction: CommandInteraction) {
         const thread = interaction.channel;
